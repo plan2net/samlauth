@@ -13,7 +13,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => 'WapplerSystems',
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.0-8.7.99',
+            'typo3' => '10.4.0 - 10.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],

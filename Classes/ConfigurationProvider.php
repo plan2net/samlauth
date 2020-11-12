@@ -72,10 +72,11 @@ class ConfigurationProvider implements \TYPO3\CMS\Core\SingletonInterface
         $idpEntityid = $configuration['idp_entity_id'];
         $idpSSO = $configuration['url'];
         $idpSSOBinding = null;
-        $idpSLO = $configuration['url'];
+        $idpSLO = $configuration['url_slo'];
 
         $spEntityid = $configuration['name'];
-        $spNameIDFormat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
+//        $spNameIDFormat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
+        $spNameIDFormat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified';
 
         $nameIdEncrypted = false;
         $authnReqsSigned = true;

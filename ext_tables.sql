@@ -15,6 +15,7 @@ CREATE TABLE tx_samlauth_domain_model_configuration
     domain                VARCHAR(255)             NOT NULL,
     user_folder           int(11)      DEFAULT '0' NOT NULL,
     url                   VARCHAR(255) DEFAULT ''  NOT NULL,
+    url_slo                   VARCHAR(255) DEFAULT ''  NOT NULL,
     certificate           text                     NOT NULL,
     cert_key              text                     NOT NULL,
     idp_entity_id         text                     NOT NULL,
@@ -29,7 +30,8 @@ CREATE TABLE tx_samlauth_domain_model_configuration
     role_group_mappings   int(11)      DEFAULT '0' NOT NULL,
 
     PRIMARY KEY (uid),
-    KEY parent (pid)
+    KEY parent (pid),
+    KEY domain (domain)
 );
 
 CREATE TABLE tx_samlauth_domain_model_role_group_mapping

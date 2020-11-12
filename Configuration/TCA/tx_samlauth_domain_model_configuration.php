@@ -22,13 +22,18 @@ return [
                 'eval' => 'trim',
             ]
         ],
+        'url_slo' => [
+            'label' => 'LLL:EXT:samlauth/Resources/Private/Language/locallang_db.xlf:tx_samlauth_domain_model_configuration.item_url_slo',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim',
+            ]
+        ],
         'domain' => [
             'label' => 'LLL:EXT:samlauth/Resources/Private/Language/locallang_db.xlf:tx_samlauth_domain_model_configuration.item_domain',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_domain',
-                'min' => 1,
+                'type' => 'input',
+                'eval' => 'required'
             ]
         ],
         'debug' => [
@@ -149,7 +154,7 @@ return [
                 --div--;LLL:EXT:samlauth/Resources/Private/Language/locallang_tabs.xlf:sp,
                     name,certificate,cert_key,passphrase,sp_acs_page,sp_sls_page,
                 --div--;LLL:EXT:samlauth/Resources/Private/Language/locallang_tabs.xlf:idp,
-                    idp_entity_id,url,idp_certificate,
+                    idp_entity_id,url,url_slo,idp_certificate,
                 --div--;LLL:EXT:samlauth/Resources/Private/Language/locallang_tabs.xlf:features,
                     default_groups_enable,default_groups
             '],

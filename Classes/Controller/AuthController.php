@@ -28,7 +28,6 @@ class AuthController extends AbstractController
      */
     public function metadataAction()
     {
-
         $samlSettings = $this->configurationProvider->getSAMLSettings();
 
         try {
@@ -37,7 +36,6 @@ class AuthController extends AbstractController
             $errors = $settings->validateMetadata($metadata);
 
             return $metadata;
-
         } catch (Error $e) {
         } catch (\Exception $e) {
         }
@@ -57,47 +55,47 @@ class AuthController extends AbstractController
      */
     public function authAction($subAction = null)
     {
-
         $flag = $GLOBALS['T3_VAR']['samlAuth'] ?? 0;
         if ($flag === 1) {
             // successful login
 
-            $this->addFlashMessage(LocalizationUtility::translate('LLL:EXT:samlauth/Resources/Private/Language/locallang.xlf:flashMessage.successfulLogin'), '',
+            $this->addFlashMessage(LocalizationUtility::translate('LLL:EXT:samlauth/Resources/Private/Language/locallang.xlf:flashMessage.successfulLogin'),
+                '',
                 \TYPO3\CMS\Core\Messaging\FlashMessage::INFO);
 
             if ((int)$this->settings['redirectAfterLogin'] > 0) {
                 $this->redirectToUri($this->uriBuilder->reset()->setTargetPageUid((int)$this->settings['redirectAfterLogin'])->buildFrontendUri());
             }
-
         }
         if ($flag === 2) {
             // login failure
 
-            $this->addFlashMessage(LocalizationUtility::translate('LLL:EXT:samlauth/Resources/Private/Language/locallang.xlf:flashMessage.loginFailure'), '',
+            $this->addFlashMessage(LocalizationUtility::translate('LLL:EXT:samlauth/Resources/Private/Language/locallang.xlf:flashMessage.loginFailure'),
+                '',
                 \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
         }
 
         if ($subAction === 'login') {
             $this->postLogin();
-        } else if ($subAction === 'logout') {
-            $this->postLogout();
+        } else {
+            if ($subAction === 'logout') {
+                $this->postLogout();
+            }
         }
 
         $isAuthorized = false;
-        if ($GLOBALS['TSFE']->loginUser !== false) {
+        if ($GLOBALS['TSFE']->loginUser !== null && $GLOBALS['TSFE']->loginUser !== false) {
             $isAuthorized = true;
         }
 
         $this->view->assignMultiple([
             'authorized' => $isAuthorized,
         ]);
-
     }
 
 
     private function postLogin()
     {
-
         $samlSettings = $this->configurationProvider->getSAMLSettings();
 
         if (isset($samlSettings)) {
@@ -129,25 +127,24 @@ class AuthController extends AbstractController
 
                 $params = [
                     'SAMLRequest' => $encodedAuthNRequest,
-                    'RelayState' => $samlSettings['sp']['assertionConsumerService']['url'], // not used by keycloak at login
+                    'RelayState' => $samlSettings['sp']['assertionConsumerService']['url'],
+                    // not used by keycloak at login
                 ];
 
                 $ssoURL = $samlSettings['idp']['singleSignOnService']['url'];
 
                 Request::executePost($this->response, $ssoURL, $params);
-
             } catch (Error $e) {
             } catch (\Exception $e) {
             }
-
         } else {
             $errorMsg = "You tried to start a SSO process but SAML2 module has wrong settings";
         }
     }
 
 
-    private function postLogout() {
-
+    private function postLogout()
+    {
         $samlSettings = $this->configurationProvider->getSAMLSettings();
 
 
@@ -187,15 +184,12 @@ class AuthController extends AbstractController
                 $ssoURL = $samlSettings['idp']['singleLogoutService']['url'];
 
                 Request::executePost($this->response, $ssoURL, $params);
-
             } catch (Error $e) {
             } catch (\Exception $e) {
             }
-
         } else {
             $errorMsg = "You tried to start a SSO process but SAML2 module has wrong settings";
         }
-
     }
 
 
@@ -206,17 +200,8 @@ class AuthController extends AbstractController
      */
     public function singleLogoutServiceAction()
     {
-
-
-
-
         $samlSettings = $this->configurationProvider->getSAMLSettings();
-
-
-
-
     }
-
 
 
 }

@@ -18,6 +18,9 @@
             <trans-unit id="tx_samlauth_domain_model_configuration.item_url">
                 <source>SAML 2.0 Endpoint</source>
             </trans-unit>
+            <trans-unit id="tx_samlauth_domain_model_configuration.item_url_slo">
+                <source>SAML 2.0 Logout Endpoint</source>
+            </trans-unit>
             <trans-unit id="tx_samlauth_domain_model_configuration.item_key">
                 <source>OpenSSL Key</source>
             </trans-unit>
